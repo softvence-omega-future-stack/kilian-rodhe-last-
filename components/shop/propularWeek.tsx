@@ -72,7 +72,7 @@ export default function Home() {
     router.push(`/pages/shipping`);
   };
   return (
-    <div className={` bg-white ${jostFont.className}`}>
+    <div className={` bg-[#FAFAFA] ${jostFont.className}`}>
       <Head>
         <title>Popular This Week</title>
         <link rel="icon" href="/favicon.ico" />

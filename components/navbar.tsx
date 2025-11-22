@@ -259,7 +259,8 @@ const Header: NextPage = () => {
       {isSearchOpen && (
         <div
           ref={searchInputRef}
-          className="absolute right-0 top-[72px] md:top-[81px] w-[300px] bg-white shadow-md rounded-md flex items-center"
+          className="absolute right-0 top-[115px] md:top-[115px] w-[300px] bg-white
+           shadow-md rounded-md flex items-center"
         >
           <input
             type="text"
@@ -272,7 +273,7 @@ const Header: NextPage = () => {
             onClick={handleSearchClick}
             className="py-2 px-4 bg-[#795548] text-white rounded-r-md hover:bg-[#5d4037] focus:outline-none"
           >
-            <SearchIcon size={20} />
+            <SearchIcon size={25} />
           </button>
         </div>
       )}

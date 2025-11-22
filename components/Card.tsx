@@ -2,7 +2,7 @@
 
 import { Users } from "lucide-react";
 import Image from "next/image";
-import Card from "./button1";
+import ExploreButton from "./button1";
 
 import trendingIcon from "../public/image/cardIcon/Icon-2.svg";
 import exploreIcon from "../public/image/cardIcon/Icon.svg"; // Path reverted to original
@@ -128,7 +128,7 @@ export default function MensCollectionCard({
           <p className={styles.sophisticatedDesignsFor}>{dis}</p>
 
           {/* Button */}
-          <Card text="Explore Collection" image={exploreIcon} />
+          <ExploreButton text="Explore Collection" title={title ?? ""} image={exploreIcon} />
         </div>
       </div>
       {/* Bottom Section (Age Group Selection) */}

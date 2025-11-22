@@ -1,12 +1,11 @@
 "use client";
-import React from "react";
-import Image from "next/image"; // Import Image component for Next.js
-
+import React, { useState } from "react"; // 👈 useState import kora holo
+import Image from "next/image";
 
 import { Inter } from "next/font/google";
 
-// Imported local images
-import allCategoriesIcon from "@/public/image/shopIcon/Icon (1).svg"; // Using boxColorIcon for active, or normalBoxIcon
+// Imported local images (keep them as is)
+import allCategoriesIcon from "@/public/image/shopIcon/Icon (1).svg";
 import menIcon from "@/public/image/shopIcon/Icon (3).svg";
 import womenIcon from "@/public/image/shopIcon/Icon (4).svg";
 import kidsIcon from "@/public/image/shopIcon/Icon (5).svg";
@@ -19,15 +18,14 @@ import bagsIcon from "@/public/image/shopIcon/Icon (11).svg";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// Mapping the categories to the imported local images
 const categories = [
   {
     name: "All Categories",
     count: null,
     image: allCategoriesIcon,
-    active: true,
+    // Note: 'active: true' removed from here
   },
-  { name: "New Arrival", count: 20, image: tshirtIcon }, // Reusing tshirtIcon
+  { name: "New Arrival", count: 20, image: tshirtIcon },
   { name: "Men", count: 95, image: menIcon },
   { name: "Women", count: 150, image: womenIcon },
   { name: "Kids", count: 48, image: kidsIcon },
@@ -40,7 +38,15 @@ const categories = [
 ];
 
 const CategorySidebar = () => {
+  // 1. State hook: Default active category hobe "All Categories"
+  const [activeCategory, setActiveCategory] = useState("All Categories");
 
+  // 2. Click Handler function: Category name ke active category hishebe set korbe
+  const handleCategoryClick = (categoryName: React.SetStateAction<string>) => {
+    setActiveCategory(categoryName);
+    // Ekhane apni parent component-ke janate paren ba product filter korte paren
+    console.log(`Category selected: ${categoryName}`);
+  };
 
   return (
     <div
@@ -48,24 +54,26 @@ const CategorySidebar = () => {
     >
       <ul className="space-y-1">
         {categories.map((category, index) => {
-          // Changed from 'icon' to 'image' for the category data structure
           const ImageSrc = category.image;
-          const isActive = category.active;
+          // 3. Check kora hocche ei category-ti ki active state-er shathe match kore?
+          const isActive = category.name === activeCategory;
 
           return (
             <li
               key={index}
+              // 4. Click event add kora holo
+              onClick={() => handleCategoryClick(category.name)}
               className={`
-                flex items-center justify-between p-2 cursor-pointer transition-colors 
+                flex items-center justify-between p-2 cursor-pointer transition-colors
                 ${
                   isActive
-                    ? "bg-amber-50 text-amber-900 border-l-4 border-amber-600" // Active state
-                    : "text-gray-700 hover:bg-gray-100 border-l-4 border-transparent" // Inactive state
+                    ? "bg-amber-50 text-amber-900 border-l-4 border-amber-600" // Active style
+                    : "text-gray-700 hover:bg-gray-100 border-l-4 border-transparent" // Inactive style
                 }
               `}
             >
               <div className="flex items-center">
-                {/* Use the Next.js Image component for the imported SVG */}
+                {/* Image Component */}
                 {ImageSrc && (
                   <Image
                     src={ImageSrc}
@@ -81,6 +89,7 @@ const CategorySidebar = () => {
                   {category.name}
                 </span>
               </div>
+              {/* Count */}
               {category.count !== null && (
                 <span
                   className={`${inter.className} text-[12px] leading-[16px]`}
@@ -92,6 +101,7 @@ const CategorySidebar = () => {
           );
         })}
       </ul>
+
     </div>
   );
 };

@@ -196,7 +196,7 @@ export default function Home() {
   );
 
   return (
-    <div className={`bg-white ${jostFont.className}`}>
+    <div className={`bg-[#FAFAFA] ${jostFont.className}`}>
       <main className="max-w-8xl mx-auto lg:px-20 py-8">
         {/* Product Grid */}
         <div className="flex flex-wrap justify-center md:justify-start gap-x-[30px] gap-y-10">

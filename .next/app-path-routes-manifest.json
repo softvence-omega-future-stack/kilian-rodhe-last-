@@ -4,6 +4,7 @@
   "/admin/signup/page": "/admin/signup",
   "/favicon.ico/route": "/favicon.ico",
   "/page": "/",
+  "/pages/children-collections/page": "/pages/children-collections",
   "/pages/collections/page": "/pages/collections",
   "/pages/contact/page": "/pages/contact",
   "/pages/createaccount/page": "/pages/createaccount",
@@ -12,8 +13,10 @@
   "/pages/login/page": "/pages/login",
   "/pages/my-creation/create-your-design/page": "/pages/my-creation/create-your-design",
   "/pages/my-creation/page": "/pages/my-creation",
+  "/pages/others-collections/page": "/pages/others-collections",
   "/pages/payment/page": "/pages/payment",
   "/pages/save-products/page": "/pages/save-products",
   "/pages/shipping/page": "/pages/shipping",
-  "/pages/shop/page": "/pages/shop"
+  "/pages/shop/page": "/pages/shop",
+  "/pages/woman-collections/page": "/pages/woman-collections"
 }

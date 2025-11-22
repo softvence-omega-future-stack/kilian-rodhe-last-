@@ -416,11 +416,11 @@ const CouponCodeManager = () => {
   };
 
   return (
-    <div className="bg-gray-50 font-sans min-h-screen">
+    <div className="bg-gray-50 font-sans ">
 
-      <div className="max-w-6xl mx-auto p-4">
+      <div className="">
         {/* 1. HEADER/TABS SECTION */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 shadow-md">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 ">
           <h1 className="text-3xl font-bold text-gray-800 mb-6">Coupon Code Manager</h1>
           
           {/* Search Bar and Action Buttons */}
@@ -477,9 +477,9 @@ const CouponCodeManager = () => {
         </div>
 
         {/* 2. TABLE/PAGINATION SECTION */}
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-md">
+        <div className="bg-white rounded-xl grid grid-cols-1 md:grid-cols-2  border border-gray-200 overflow-hidden ">
           {/* Table Structure */}
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto md:col-span-2">
             <table className="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr className="bg-gray-50">

@@ -6,15 +6,25 @@ import { useRouter } from "next/navigation"; // 👈 Import useRouter
 
 interface Button1Props {
   text: string;
+  title: string;
   image?: string;
 }
 
-const Button1 = ({ text, image }: Button1Props) => {
+const Button1 = ({ text, image , title}: Button1Props) => {
   const router = useRouter(); // 👈 Initialize the router
 
   // Function to handle the click event and navigate
   const handleClick = () => {
-    router.push("/pages/collections"); // 👈 Navigate to /collections route
+    if(title==="Men’s Collections")
+      router.push("/pages/man-collections"); // 👈 Navigate to /collections rout
+    else if(title==="Women’s Collections")
+      router.push("/pages/woman-collections"); // 👈 Navigate to /collections route
+    else if(title==="Children’s Collections")
+      router.push("/pages/children-collections");
+    else if(title==="Other Products Collections")
+      router.push("/pages/others-collections"); // 👈 Navigate to /collections route
+    else 
+      router.push("/pages/collections"); // 👈 Navigate to /collections route
   };
 
   return (

@@ -44,7 +44,7 @@ const itemVariants: Variants = {
 
 const AnimatedHero = () => {
   return (
-    <div className="relative h-[350px] md:h-[368px] w-full overflow-hidden px-4">
+    <div className="relative bg-[#FAFAFA] h-[350px] md:h-[368px] w-full overflow-hidden px-4">
       {/* Background Image using Next.js Image component */}
       <Image
         src={bgImage}

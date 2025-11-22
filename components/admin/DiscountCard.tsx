@@ -236,7 +236,9 @@ const DiscountPage: React.FC = () => {
 
         <button
           onClick={() => setIsCreating(true)}
-          className="flex items-center px-4 py-2.5 rounded-xl text-white font-semibold transition-all transform hover:scale-[1.01] bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
+          className="flex items-center px-4 py-2.5 rounded-xl text-white font-semibold transition-all
+           transform hover:scale-[1.01] bg-gradient-to-r from-indigo-500 to-purple-600 
+           hover:from-indigo-600 hover:to-purple-700"
         >
           <Plus className="w-5 h-5 mr-2" />
           Create Custom Discount Code

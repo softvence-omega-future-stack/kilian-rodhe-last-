@@ -50,7 +50,7 @@ export default function Home() {
   };
 
   return (
-    <div className={`bg-white ${jostFont.className}`}>
+    <div className={`bg-[#FAFAFA] ${jostFont.className}`}>
       <main className="max-w-7xl mx-auto px-4">
         <div className="flex flex-wrap justify-center gap-10 md:gap-5">
           {products.map((product, index) => (

@@ -51,6 +51,12 @@
       "namedRegex": "^/favicon\\.ico(?:/)?$"
     },
     {
+      "page": "/pages/children-collections",
+      "regex": "^/pages/children\\-collections(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pages/children\\-collections(?:/)?$"
+    },
+    {
       "page": "/pages/collections",
       "regex": "^/pages/collections(?:/)?$",
       "routeKeys": {},
@@ -99,6 +105,12 @@
       "namedRegex": "^/pages/my\\-creation/create\\-your\\-design(?:/)?$"
     },
     {
+      "page": "/pages/others-collections",
+      "regex": "^/pages/others\\-collections(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pages/others\\-collections(?:/)?$"
+    },
+    {
       "page": "/pages/payment",
       "regex": "^/pages/payment(?:/)?$",
       "routeKeys": {},
@@ -121,6 +133,12 @@
       "regex": "^/pages/shop(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/pages/shop(?:/)?$"
+    },
+    {
+      "page": "/pages/woman-collections",
+      "regex": "^/pages/woman\\-collections(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/pages/woman\\-collections(?:/)?$"
     }
   ],
   "dataRoutes": [],

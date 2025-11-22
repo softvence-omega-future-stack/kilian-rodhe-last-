@@ -17,9 +17,14 @@ const cormorantItalic = Cormorant_Garamond({
 });
 
 const CustomDesignStudio = () => {
+   const router = useRouter();  
+
+  const handleAllProducts = () => {
+    router.push("/pages/shop");
+  };
   const sectionRef = useRef(null);
 
-  const router = useRouter();
+
 
   const [isInView, setIsInView] = useState(false);
 
@@ -125,7 +130,7 @@ const CustomDesignStudio = () => {
             Start Designing
           </button>
 
-          <button
+          <button      onClick={handleAllProducts}
             className={`w-full sm:w-auto py-3 px-8 text-sm  ${jostFont.className} font-medium uppercase tracking-[2.1] 
                                      bg-white border-2 border-stone-900 font-jost hover:bg-stone-50 
                                      transition duration-300 shadow-md text-[#1a1a1a]`}

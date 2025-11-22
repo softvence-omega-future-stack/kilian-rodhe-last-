@@ -15,368 +15,353 @@ import instagramIcon from "../public/image/footerIcon/Icon (4).svg";
 import { Jost, Cormorant_Garamond } from "next/font/google";
 
 const jostFont = Jost({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 const cormorantItalic = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["italic"],
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["italic"],
 });
 
 // --- CSS Animation Definitions ---
 const animationStyles = (
-  <style jsx global>{`
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(50px); /* Larger slide for the whole footer */
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+  <style jsx global>{`
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px); /* Larger slide for the whole footer */
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-    /* Initial State (Hidden) */
-    .footer-initial {
-      opacity: 0;
-      transform: translateY(50px);
-    }
+    /* Initial State (Hidden) */
+    .footer-initial {
+      opacity: 0;
+      transform: translateY(50px);
+    }
 
-    /* Animated State */
-    .footer-animate {
-      animation: slideUp 1s ease-out forwards; /* Slow and smooth overall slide up */
-      animation-delay: 0.1s;
-    }
-  `}</style>
+    /* Animated State */
+    .footer-animate {
+      animation: slideUp 1s ease-out forwards; /* Slow and smooth overall slide up */
+      animation-delay: 0.1s;
+    }
+  `}</style>
 );
 // -------------------------------------------------------------
 
 const footerLinks = [
-  // Column 1: Shopping Links
-  {
-    title: "All Products",
-    links: [
-      { name: "All Products", href: "/products" },
-      { name: "Collections", href: "/collections" },
-      { name: "Men's Collection", href: "/men" },
-      { name: "Women's Collection", href: "/women" },
-      { name: "Kids Collection", href: "/kids" },
-      { name: "Best Sellers", href: "/best-sellers" },
-    ],
-  },
-  // Column 2: Company Info
-  {
-    title: "About Us",
-    links: [
-      { name: "About Us", href: "/about" },
-      { name: "Our Story", href: "/story" },
-      { name: "Sustainability", href: "/sustainability" },
-      { name: "Careers", href: "/careers" },
-      { name: "Press Kit", href: "/press" },
-      { name: "Contact Us", href: "/contact" },
-    ],
-  },
-  // Column 3: Help Center
-  {
-    title: "Help Center",
-    links: [
-      { name: "Help Center", href: "/help" },
-      { name: "Shipping & Delivery", href: "/shipping" },
-      { name: "Returns & Exchanges", href: "/returns" },
-      { name: "Design Guidelines", href: "/design-guidelines" },
-      { name: "Size Guide", href: "/size-guide" },
-      { name: "Track Your Order", href: "/track" },
-    ],
-  },
+  // Column 1: Shopping Links
+  {
+  
+    links: [
+      { name: "All Products", href: "/pages/shop" },
+      { name: "Collections", href: "/pages/collections" },
+      { name: "Men's Collection", href: "/pages/collection" },
+      { name: "Women's Collection", href: "/pages/woman-collections" },
+      { name: "Children Collection", href: "/pages/children-collections" },
+    { name: "Contact Us", href: "/pages/contact" },
+    ],
+  },
+
+
 ];
 
 const Footer = () => {
-  // 1. Setup Hooks for Scroll Animation
-  const footerRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+  // 1. Setup Hooks for Scroll Animation
+  const footerRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  useEffect(() => {
-    // FIX: Capture the current value of the ref inside the effect
-    const currentRef = footerRef.current;
+  useEffect(() => {
+    // FIX: Capture the current value of the ref inside the effect
+    const currentRef = footerRef.current;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0.05, // Trigger when 5% of the footer is visible
-      }
-    );
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.05, // Trigger when 5% of the footer is visible
+      }
+    );
 
-    // Use the captured ref value for observation
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+    // Use the captured ref value for observation
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
 
-    // Cleanup function uses the captured ref value, resolving the warning
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, []);
+    // Cleanup function uses the captured ref value, resolving the warning
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
 
-  // Conditional classes for the entire footer
-  const footerClasses = isVisible
-    ? "footer-initial footer-animate"
-    : "footer-initial";
+  // Conditional classes for the entire footer
+  const footerClasses = isVisible
+    ? "footer-initial footer-animate"
+    : "footer-initial";
 
-  return (
-    // Main Footer Container: Dark Background, Text White
-    <footer
-      ref={footerRef} // Attach ref to the main footer tag
-      className={`bg-[#0b0c0e] text-gray-300 ${footerClasses}`}
-    >
-      {animationStyles}
-      <div className=" mx-auto px-4 sm:px-6 lg:px-14 py-16">
-        {/* === 1. TOP SECTION: Branding and Links (4 Columns) === */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-800 pb-12">
-          {/* Column 1: Branding & Mission */}
-          <div className="space-y-6 md:col-span-1">
-            <Link href="/" className="flex flex-col items-center group w-fit">
-              {/* Thundra Text - Custom Font and Styling (Left aligned for desktop) */}
-              <span
-                className={`${cormorantItalic.className} text-white text-[48px] sm:text-5xl  font-semibold text-center tracking-[0.5px] leading-[48px]`}
-              >
-                Thundra
-              </span>
+  return (
+    // Main Footer Container: Dark Background, Text White
+    <footer
+      ref={footerRef} // Attach ref to the main footer tag
+      className={`bg-[#0b0c0e] text-gray-300 ${footerClasses}`}
+    >
+      {animationStyles}
+      <div className=" mx-auto px-4 sm:px-6 lg:px-14 py-16">
+        {/* === 1. TOP SECTION: Branding and Links (4 Columns) === */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-b border-gray-800 pb-12">
+          {/* Column 1: Branding & Mission */}
+          <div className="space-y-6 md:col-span-1">
+            <Link href="/" className="flex flex-col items-center group w-fit">
+              {/* Thundra Text - Custom Font and Styling (Left aligned for desktop) */}
+              <span
+                className={`${cormorantItalic.className} text-white text-[48px] sm:text-5xl  font-semibold text-center tracking-[0.5px] leading-[48px]`}
+              >
+                Thundra
+              </span>
 
-              {/* DESIGN STUDIO with Lines */}
-              <div className="flex items-center mt-3 space-x-3">
-                {/* Left Line */}
-                <span className="block w-8 h-[1px] bg-[#d4af37]"></span>
+              {/* DESIGN STUDIO with Lines */}
+              <div className="flex items-center mt-3 space-x-3">
+                {/* Left Line */}
+                <span className="block w-8 h-[1px] bg-[#d4af37]"></span>
 
-                {/* DESIGN STUDIO Text */}
-                <span
-                  className={`${jostFont.className} text-[12px] tracking-[3.6px] text-[#d4af37] font-light uppercase whitespace-nowrap leading-[16px]`}
-                >
-                  DESIGN STUDIO
-                </span>
+                {/* DESIGN STUDIO Text */}
+                <span
+                  className={`${jostFont.className} text-[12px] tracking-[3.6px] text-[#d4af37] font-light uppercase whitespace-nowrap leading-[16px]`}
+                >
+                  DESIGN STUDIO
+                </span>
 
-                {/* Right Line */}
-                <span className="block w-8 h-[1px] bg-[#d4af37]"></span>
-              </div>
-            </Link>
+                {/* Right Line */}
+                <span className="block w-8 h-[1px] bg-[#d4af37]"></span>
+              </div>
+            </Link>
 
-            <p
-              className={`${jostFont.className} text-[16px] tracking-[0.5px] text-[#D1D5DC] leading-[29.25px]  max-w-3xl`}
-            >
-              Empowering creativity through AI-powered design. Transform your
-              vision into premium custom products with professional 300 DPI
-              quality guaranteed.
-            </p>
+            <p
+              className={`${jostFont.className} text-[16px] tracking-[0.5px] text-[#D1D5DC] leading-[29.25px]  max-w-3xl`}
+            >
+              Empowering creativity through AI-powered design. Transform your
+              vision into premium custom products with professional 300 DPI
+              quality guaranteed.
+            </p>
 
-            {/* Social Icons */}
-            <div className="flex space-x-4 pt-2">
-              <Link
-                href="#"
-                className="p-2 border border-gray-700 rounded-sm hover:border-yellow-600 transition-colors"
-              >
-                <Image
-                  src={fbIcon}
-                  alt="Facebook"
-                  width={20}
-                  height={20}
-                  className="w-5 h-5 text-gray-400 hover:text-yellow-600"
-                />
-              </Link>
-              <Link
-                href="#"
-                className="p-2 border border-gray-700 rounded-sm hover:border-yellow-600 transition-colors"
-              >
-                <Image
-                  src={instagramIcon}
-                  alt="Instagram"
-                  width={20}
-                  height={20}
-                  className="w-5 h-5 text-gray-400 hover:text-yellow-600"
-                />
-              </Link>
-              <Link
-                href="#"
-                className="p-2 border border-gray-700 rounded-sm hover:border-yellow-600 transition-colors"
-              >
-                <Image
-                  src={xIcon}
-                  alt="Twitter"
-                  width={20}
-                  height={20}
-                  className="w-5 h-5 text-gray-400 hover:text-yellow-600"
-                />
-              </Link>
-              <Link
-                href="#"
-                className="p-2 border border-gray-700 rounded-sm hover:border-yellow-600 transition-colors"
-              >
-                <Image
-                  src={youTubeIcon}
-                  alt="YouTube"
-                  width={20}
-                  height={20}
-                  className="w-5 h-5 text-gray-400 hover:text-yellow-600"
-                />
-              </Link>
-            </div>
-          </div>
+            {/* Social Icons */}
+            <div className="flex space-x-4 pt-2">
+              <Link
+                href="https://www.facebook.com"
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                className="p-2 border border-gray-700 rounded-sm hover:border-yellow-600 transition-colors"
+              >
+                <Image
+                  src={fbIcon}
+                  alt="Facebook"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 text-gray-400 hover:text-yellow-600"
+                />
+              </Link>
+              <Link
+                href="https://www.instagram.com"
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                className="p-2 border border-gray-700 rounded-sm hover:border-yellow-600 transition-colors"
+              >
+                <Image
+                  src={instagramIcon}
+                  alt="Instagram"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 text-gray-400 hover:text-yellow-600"
+                />
+              </Link>
+              <Link
+                href="#"
+                className="p-2 border border-gray-700 rounded-sm hover:border-yellow-600 transition-colors"
+              >
+                <Image
+                  src={xIcon}
+                  alt="Twitter"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 text-gray-400 hover:text-yellow-600"
+                />
+              </Link>
+              <Link
+                href="https://www.youtube.com"
+  target="_blank" 
+  rel="noopener noreferrer"
 
-          {/* Columns 2, 3, 4: Link Lists */}
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-3 md:col-span-3">
-            {footerLinks.map((section) => (
-              <div key={section.title} className="space-y-4">
-                <h4
-                  className={`${jostFont.className} text-[14px] tracking-[0.5px] text-[#D1D5DC] leading-[20px]  mb-3`}
-                >
-                  {section.title}
-                </h4>
-                <ul className="space-y-2">
-                  {section.links.map((link) => (
-                    <li key={link.name}>
-                      <Link
-                        href={link.href}
-                        className={`${jostFont.className} text-[14px] tracking-[0.5px] text-[#D1D5DC] leading-[20px] hover:text-white transition-colors`}
-                      >
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
+                className="p-2 border border-gray-700 rounded-sm hover:border-yellow-600 transition-colors"
+              >
+                <Image
+                  src={youTubeIcon}
+                  alt="YouTube"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 text-gray-400 hover:text-yellow-600"
+                />
+              </Link>
+            </div>
+          </div>
 
-        {/* === 2. MIDDLE SECTION: Contact Boxes === */}
-        <div className="py-12 flex flex-col md:flex-row gap-8 justify-start">
-          {/* Email Box */}
-          <div className="flex-1 p-6 bg-[#1a1c1f] border-[2px] border-solid border-[rgba(255,255,255,0.1)]  flex items-center space-x-4 max-w-full md:max-w-md">
-            <div className="p-3 bg-[#d4af37]">
-              <Image
-                src={emailIcon}
-                alt="Email"
-                width={20}
-                height={20}
-                className="w-5 h-5 text-black"
-              />
-            </div>
-            <div>
-              <p
-                className={`${jostFont.className} text-[12px] mb-2 tracking-[2.4px] text-[#6a7282] leading-[16px] uppercase `}
-              >
-                Email Us
-              </p>
-              <p
-                className={`${jostFont.className} text-[14px] tracking-[0.5px] leading-[20px] text-white`}
-              >
-                support@thundra.de
-              </p>
-            </div>
-          </div>
+          {/* Columns 2, 3, 4: Link Lists */}
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-1 md:col-span-1">
+            {footerLinks.map((section, index) => (
+              <div key={index} className="space-y-4">
+                <h4
+                  className={`${jostFont.className} text-[14px] tracking-[0.5px] text-[#D1D5DC] leading-[20px]  mb-3`}
+                >
+             
+                </h4>
+                <ul className="space-y-2">
+                  {section.links.map((link) => (
+                    <li key={link.name}>
+                      <Link
+                        href={link.href}
+                        className={`${jostFont.className} text-[14px] tracking-[0.5px] text-[#D1D5DC] leading-[20px] hover:text-white transition-colors`}
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
 
-          {/* Business Address Box */}
-          <div className="flex-1 p-6 bg-[#1a1c1f] border-[2px] border-solid border-[rgba(255,255,255,0.1)]  flex items-start space-x-4 max-w-full md:max-w-md">
-            <div className="p-3 bg-[#d4af37] ">
-              <Image
-                src={locationIcon}
-                alt="Location"
-                width={20}
-                height={20}
-                className="w-5 h-5 text-black"
-              />
-            </div>
-            <div>
-              <p
-                className={`${jostFont.className} text-[12px] mb-2 tracking-[2.4px] text-[#6a7282] leading-[16px] uppercase`}
-              >
-                Business Address
-              </p>
-              <address
-                className={`${jostFont.className} text-[14px] tracking-[0.5px] leading-[20px] text-white`}
-              >
-                Kilian Rohde <br />
-                Leopoldstraße 2-8 DE-32051 Herford
-              </address>
-            </div>
-          </div>
-        </div>
+        {/* === 2. MIDDLE SECTION: Contact Boxes === */}
+        <div className="py-12 flex flex-col md:flex-row gap-8 justify-start">
+          {/* Email Box */}
+          <div className="flex-1 p-6 bg-[#1a1c1f] border-[2px] border-solid border-[rgba(255,255,255,0.1)]  flex items-center space-x-4 max-w-full md:max-w-md">
+            <div className="p-3 bg-[#d4af37]">
+              <Image
+                src={emailIcon}
+                alt="Email"
+                width={20}
+                height={20}
+                className="w-5 h-5 text-black"
+              />
+            </div>
+            <div>
+              <p
+                className={`${jostFont.className} text-[12px] mb-2 tracking-[2.4px] text-[#6a7282] leading-[16px] uppercase `}
+              >
+                Email Us
+              </p>
+              <p
+                className={`${jostFont.className} text-[14px] tracking-[0.5px] leading-[20px] text-white`}
+              >
+                support@thundra.de
+              </p>
+            </div>
+          </div>
 
-        {/* === 3. BOTTOM SECTION: Copyright and Legal Links === */}
-        <div className="border-t border-gray-800 pt-8 text-xs flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
-          {/* Copyright & Legal Links (Left & Right Side combined) */}
-          <div className="text-gray-500 space-y-2 w-full flex flex-col md:flex-row justify-between items-center text-center">
-            <p
-              className={`${jostFont.className} text-[14px] tracking-[0.5px] leading-[20px] text-[#99A1AF]`}
-            >
-              © 2025 Thundra. All rights reserved.
-            </p>
+          {/* Business Address Box */}
+          <div className="flex-1 p-6 bg-[#1a1c1f] border-[2px] border-solid border-[rgba(255,255,255,0.1)]  flex items-start space-x-4 max-w-full md:max-w-md">
+            <div className="p-3 bg-[#d4af37] ">
+              <Image
+                src={locationIcon}
+                alt="Location"
+                width={20}
+                height={20}
+                className="w-5 h-5 text-black"
+              />
+            </div>
+            <div>
+              <p
+                className={`${jostFont.className} text-[12px] mb-2 tracking-[2.4px] text-[#6a7282] leading-[16px] uppercase`}
+              >
+                Business Address
+              </p>
+              <address
+                className={`${jostFont.className} text-[14px] tracking-[0.5px] leading-[20px] text-white`}
+              >
+                Kilian Rohde <br />
+                Leopoldstraße 2-8 DE-32051 Herford
+              </address>
+            </div>
+          </div>
+        </div>
 
-            <div
-              className={`${jostFont.className} text-[14px] tracking-[0.5px] leading-[20px] text-[#99A1AF] flex flex-wrap justify-center md:justify-end space-x-4 `}
-            >
-              <Link
-                href="/privacy"
-                className="hover:text-white transition-colors whitespace-nowrap"
-              >
-                Privacy Policy
-              </Link>
-              <p>|</p>
-              <Link
-                href="/terms"
-                className="hover:text-white transition-colors whitespace-nowrap"
-              >
-                Terms of Service
-              </Link>
-              <p>|</p>
-              <Link
-                href="/cookie"
-                className="hover:text-white transition-colors whitespace-nowrap"
-              >
-                Cookie Policy
-              </Link>
-              <p>|</p>
-              <Link
-                href="/gdpr"
-                className="hover:text-white transition-colors whitespace-nowrap"
-              >
-                GDPR Compliance
-              </Link>
-            </div>
-          </div>
-        </div>
+        {/* === 3. BOTTOM SECTION: Copyright and Legal Links === */}
+        <div className="border-t border-gray-800 pt-8 text-xs flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+          {/* Copyright & Legal Links (Left & Right Side combined) */}
+          <div className="text-gray-500 space-y-2 w-full flex flex-col md:flex-row justify-between items-center text-center">
+            <p
+              className={`${jostFont.className} text-[14px] tracking-[0.5px] leading-[20px] text-[#99A1AF]`}
+            >
+              © 2025 Thundra. All rights reserved.
+            </p>
 
-        {/* **MODIFIED DIV: Footer Features/Badges** */}
-        <div
-          className={`${jostFont.className} text-[12px] tracking-[0.5px] leading-[16px] text-[#6A7282]  flex flex-wrap justify-center items-center w-full space-x-2 pt-4 text-center`}
-        >
-          {/* Left HR: Hidden on small screens, shown on medium and up */}
-          <hr className="hidden md:block bg-[#D4AF374D] h-[1px] w-[5%] border-0" />
-          <span className="whitespace-nowrap">Powered by Adobe Firefly AI</span>
-          {/* Small square separator (Hidden on mobile to avoid wrap issues) */}
-          <span className="hidden md:block text-[#d4af37]">&#9632;</span>{" "}
-          <span className="whitespace-nowrap">
-            Professional 300 DPI Quality
-          </span>
-          {/* Small square separator (Hidden on mobile) */}
-          <span className="hidden md:block text-yellow-600">&#9632;</span>
-          <span className="whitespace-nowrap">GDPR-Compliant</span>
-          {/* Right HR: Hidden on small screens, shown on medium and up */}
-          <hr className="hidden md:block bg-[#D4AF374D] h-[1px] w-[5%] border-0" />
-        </div>
-      </div>
-    </footer>
-  );
+            <div
+              className={`${jostFont.className} text-[14px] tracking-[0.5px] leading-[20px] text-[#99A1AF] flex flex-wrap justify-center md:justify-end space-x-4 `}
+            >
+              <Link
+                href="/privacy"
+                className="hover:text-white transition-colors whitespace-nowrap"
+              >
+                Privacy Policy
+              </Link>
+              <p>|</p>
+              <Link
+                href="/terms"
+                className="hover:text-white transition-colors whitespace-nowrap"
+              >
+                Terms of Service
+              </Link>
+              <p>|</p>
+              <Link
+                href="/cookie"
+                className="hover:text-white transition-colors whitespace-nowrap"
+              >
+                Cookie Policy
+              </Link>
+              <p>|</p>
+              <Link
+                href="/gdpr"
+                className="hover:text-white transition-colors whitespace-nowrap"
+              >
+                GDPR Compliance
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* **MODIFIED DIV: Footer Features/Badges** */}
+        <div
+          className={`${jostFont.className} text-[12px] tracking-[0.5px] leading-[16px] text-[#6A7282]  flex flex-wrap justify-center items-center w-full space-x-2 pt-4 text-center`}
+        >
+          {/* Left HR: Hidden on small screens, shown on medium and up */}
+          <hr className="hidden md:block bg-[#D4AF374D] h-[1px] w-[5%] border-0" />
+          <span className="whitespace-nowrap">Powered by Adobe Firefly AI</span>
+          {/* Small square separator (Hidden on mobile to avoid wrap issues) */}
+          <span className="hidden md:block text-[#d4af37]">&#9632;</span>{" "}
+          <span className="whitespace-nowrap">
+            Professional 300 DPI Quality
+          </span>
+          {/* Small square separator (Hidden on mobile) */}
+          <span className="hidden md:block text-yellow-600">&#9632;</span>
+          <span className="whitespace-nowrap">GDPR-Compliant</span>
+          {/* Right HR: Hidden on small screens, shown on medium and up */}
+          <hr className="hidden md:block bg-[#D4AF374D] h-[1px] w-[5%] border-0" />
+        </div>
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;
