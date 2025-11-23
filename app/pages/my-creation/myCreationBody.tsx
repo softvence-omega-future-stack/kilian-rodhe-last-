@@ -1,10 +1,16 @@
 "use client";
 import { useState } from "react";
 import { Cormorant_Garamond } from "next/font/google";
+// 1. IMPORT ROUTER FOR REAL NAVIGATION
+import { useRouter } from "next/navigation"; 
+
 // Placeholder image for standalone environment
 const ICON_PLACEHOLDER_URL =
   "https://placehold.co/112x112/E0E7FF/4338CA/png?text=%E2%9C%A8";
 
+// Ensure you have this path or replace with a local placeholder if needed
+import emptyIcon from "@/public/image/myCreationIcon/Icon.svg"; 
+import Image from "next/image";
 
 const cormorantItalic = Cormorant_Garamond({
   subsets: ["latin"],
@@ -162,7 +168,7 @@ const DeleteConfirmationModal = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-white rounded-xl shadow-2xl p-6 w-11/12 max-w-sm">
+      <div className="bg-white shadow-2xl p-6 w-11/12 max-w-sm">
         <div className="text-center">
           <div className="mx-auto h-12 w-12 bg-red-100 rounded-full flex items-center justify-center">
             <svg
@@ -192,13 +198,13 @@ const DeleteConfirmationModal = ({
         <div className="mt-5 flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 border-2 border-[#E8E3DC] rounded-lg py-2 hover:bg-gray-50"
+            className="flex-1 border-2 border-[#E8E3DC]  py-2 hover:bg-gray-50"
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
-            className="flex-1 bg-red-600 text-white rounded-lg py-2 hover:bg-red-700"
+            className="flex-1 bg-red-600 text-white py-2 hover:bg-red-700"
           >
             Delete
           </button>
@@ -224,13 +230,15 @@ const ProductCard = ({ product, tabType, onDelete }: ProductCardProps) => {
   const dateValue = product.orderDate || product.savedDate;
 
   return (
-    <div className="rounded-lg border-2 border-[#E8E3DC] bg-white hover:shadow-xl">
+    <div className=" border-2 border-[#E8E3DC] bg-white hover:shadow-xl">
       {/* Image */}
-      <div className="relative aspect-[3/2] overflow-hidden rounded-t-lg">
+      <div className="relative aspect-[3/2] overflow-hidden ">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={product.image}
           className="w-full h-full object-cover"
           alt={product.title}
+          // Using a standard <img> tag for external URLs 
         />
 
         {isOrdered && (
@@ -258,13 +266,13 @@ const ProductCard = ({ product, tabType, onDelete }: ProductCardProps) => {
 
         <div className="mt-4 pt-3 border-t border-[#E8E3DC] flex justify-between items-center">
           <p className="text-lg font-bold text-gray-500">Price:</p>
-          <p className="text-2xl text-indigo-600">€{product.price}</p>
+          <p className="text-2xl text-indigo-600">€{product.price.toFixed(2)}</p>
         </div>
 
         {onDelete && (isSaved || isMy) && (
           <button
             onClick={() => onDelete(product.id, product.title)}
-            className="mt-4 w-full text-red-600 py-2 border border-red-300 rounded-lg hover:bg-red-50 transition"
+            className="mt-4 w-full text-red-600 py-2 border border-red-300 hover:bg-red-50 transition"
           >
             Delete
           </button>
@@ -284,10 +292,11 @@ const EmptyCreationsState = ({
 }: EmptyCreationsStateProps) => (
   <div className="mt-16 text-center max-w-lg mx-auto p-10">
     <div className="mx-auto h-28 w-28 mb-6">
-      <img
-        src={ICON_PLACEHOLDER_URL}
+      <Image
+        src={emptyIcon}
+        alt="No Creations Icon"
         className="w-full h-full object-contain opacity-90"
-        alt="Empty"
+        priority 
       />
     </div>
 
@@ -300,7 +309,7 @@ const EmptyCreationsState = ({
     <button
       onClick={onFindProduct}
       disabled={isLoading}
-      className={`px-8 py-3 bg-[#D4AF37] text-white font-bold rounded-lg flex items-center justify-center mx-auto ${
+      className={`px-8 py-3 bg-[#D4AF37] text-white font-bold flex items-center justify-center mx-auto ${
         isLoading ? "opacity-60 cursor-not-allowed" : "hover:bg-[#c9a632]"
       }`}
     >
@@ -340,6 +349,9 @@ const EmptyCreationsState = ({
 // ----------------------------------------------------
 
 export default function App() {
+  // Initialize Next.js Router
+  const router = useRouter();
+  
   const [activeTab, setActiveTab] =
     useState<"ordered" | "saved" | "my">("ordered");
 
@@ -363,11 +375,13 @@ export default function App() {
     tab: null,
   });
 
+  // Function now uses router.push for navigation
   const handleFindProduct = () => {
     setIsLoading(true);
 
     setTimeout(() => {
-      console.log("[Router] Navigating to /pages/shop");
+      // REAL NEXT.JS ROUTER NAVIGATION
+      router.push("/pages/shop"); 
       setIsLoading(false);
     }, 1000);
   };
@@ -447,12 +461,13 @@ export default function App() {
 
       <div className="max-w-7xl mx-auto px-4">
         {/* Tabs */}
-        <div className="flex flex-col md:flex-row md:justify-center md:space-x-6 space-y-2 md:space-y-0 mb-10 bg-white p-3 rounded-xl border-2 border-[#E8E3DC]">
+        <div className="flex flex-col md:flex-row md:justify-center md:space-x-6
+          space-y-2 md:space-y-0 mb-10 bg-white p-3  border-2 border-[#E8E3DC]">
           {tabs.map((t) => (
             <button
               key={t.id}
               onClick={() => setActiveTab(t.id)}
-              className={`w-full md:w-auto flex justify-center items-center space-x-2 py-3 px-4 rounded-lg transition-all ${
+              className={`w-full md:w-auto flex justify-center items-center space-x-2 py-3 px-4 transition-all ${
                 activeTab === t.id
                   ? "text-white bg-indigo-600"
                   : "text-gray-600 bg-white"

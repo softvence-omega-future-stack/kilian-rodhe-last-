@@ -119,13 +119,13 @@ const AiDesignGenerate: React.FC<AiDesignGenerateProps> = ({
         >
           DESCRIBE YOUR DESIGN
         </h3>
-        <p
-          className="text-xs ml-2 text-gray-600 tracking-widest mb-3"
-          style={{ fontFamily: "'Jost', sans-serif" }}
-        >
-          Example: A majestic lion with golden mane, detailed portrait style,
-          dramatic lighting...
-        </p>
+        <textarea
+          className="w-full h-24 p-3 border border-gray-300 rounded-md resize-none focus:outline-none  text-sm"
+          placeholder="Example: A majestic lion with golden mane, detailed portrait style,
+          dramatic lighting..."
+          style={{ fontFamily: "'Jost', sans-serif", letterSpacing: "0.5px" }}
+        ></textarea>
+      
         <p
           className="text-xs mt-10 text-gray-600"
           style={{ fontFamily: "'Jost', sans-serif", letterSpacing: "0.5px" }}
