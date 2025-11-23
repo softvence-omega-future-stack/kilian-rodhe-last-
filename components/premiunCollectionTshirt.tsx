@@ -597,24 +597,7 @@ export default function ProductPage() {
             </div>
 
             {/* 3. Easy Returns */}
-            <div className="flex items-start">
-              <div className="w-10 h-10 border border-[#E5E5E5] flex items-center justify-center mr-3 flex-shrink-0 transition duration-300 hover:border-gray-500">
-                <CustomIcon
-                  src={reloadIcon}
-                  alt="Shipping Icon"
-                  className="h-5 w-5"
-                />
-              </div>
-              <span className={`${jostFont.className} leading-5 pt-1`}>
-                <span className="tracking-[0.5px] text-sm text-[#1a1a1a]">
-                  Easy Returns
-                </span>{" "}
-                <br />
-                <span className="tracking-[0.5px] text-[12px] text-[#6a6a6a]">
-                  30-day policy
-                </span>
-              </span>
-            </div>
+           
 
             {/* 4. 300 DPI Print */}
             <div className="flex items-start">
